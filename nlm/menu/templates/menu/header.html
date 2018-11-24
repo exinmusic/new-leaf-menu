@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title> - new leaf menu - </title>
+	<meta charset="utf-8" />
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type = "text/css"/>
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	
+	<style type="text/css">
+		html,
+		body {
+		  height:100%
+		}
+	</style>
+</head>
+
+<body class="body">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm">
+						{% block sativa %}
+						{% endblock %}	
+					</div>
+					<div class="col-sm">
+						{% block hybrid %}
+						{% endblock %}	
+					</div>
+					<div class="col-sm">
+						{% block indica %}
+						{% endblock %}
+					</div>
+				</div>
+			</div>
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>
