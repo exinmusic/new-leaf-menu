@@ -17,27 +17,39 @@
 </head>
 
 <body class="body">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm">
-						{% block sativa %}
-						{% endblock %}	
-					</div>
-					<div class="col-sm">
-						{% block hybrid %}
-						{% endblock %}	
-					</div>
-					<div class="col-sm">
-						{% block indica %}
-						{% endblock %}
-					</div>
+
+	<div style="padding: 30px;">
+		<div class="row">
+			<div class="col-sm">
+				<div class="card text-white bg-primary mb-3 shadow">
+					<div class="card-header"><h2><span><img src="{% static 'img/svg/sun.svg' %}" class="responsive-img" style='height:30px;' alt="face"></span>  Sativas</h2></div>
+					<ul id="sativas"></ul>
 				</div>
 			</div>
+			<div class="col-sm">
+					<div class="card text-white bg-success mb-3 shadow">
+					<div class="card-header"><h2><span><img src="{% static 'img/svg/transfer.svg' %}" class="responsive-img" style='height:30px;' alt="face"></span>  Hybrids</h2></div>
+					<ul id="hybrids"></ul>
+				</div>
+			</div>
+				<div class="col-sm">
+						<div class="card text-white bg-dark mb-3 shadow">
+						<div class="card-header"><h2><span><img src="{% static 'img/svg/moon.svg' %}" class="responsive-img" style='height:30px;' alt="face"></span> Indicas</h2></div>
+						<ul id="indicas"></ul>
+					</div>
+				</div>
+		</div>
+	
+		<div class="row fixed-bottom">
+			<button class="btn btn-secondary btn-lg btn-block">Welcome to The Portland Canna Connection</button>
+		</div>
 
+	</div>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/menu_ajax.js' %}"></script>
 </body>
 
 </html>
