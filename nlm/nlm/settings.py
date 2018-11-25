@@ -19,7 +19,7 @@ SECRET_KEY = 'x=4eu-(@lkr$=kn^puljfek*1^(cv_q+5v^em*yx7@^h8*i08l'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

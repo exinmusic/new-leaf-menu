@@ -2,7 +2,7 @@ var stracker = [];
 var htracker = [];
 var itracker = [];
 (function(){
-	$.getJSON( 'http://127.0.0.1:8000/json_menu/', function(obj) {
+	$.getJSON( '/json_menu/', function(obj) {
 		if (obj.scount != stracker) {
 			$("#sativas").empty();
 			$.each(obj.sativas, function(key, value) {

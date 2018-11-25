@@ -1,6 +1,6 @@
 var ntracker = [];
 (function(){
-	$.getJSON( 'http://127.0.0.1:8000/json_menu/', function(obj) {
+	$.getJSON( '/json_menu/', function(obj) {
 		if (obj.ncount != ntracker) {
 			$("#nopheno").empty();
 			$.each(obj.nopheno, function(key, value) {
