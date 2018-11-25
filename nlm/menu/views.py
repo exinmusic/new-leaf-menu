@@ -8,6 +8,9 @@ import re
 def index(request):
 	return render(request, 'menu/index.html')
 
+def dash(request):
+	return render(request, 'menu/dash.html')
+
 def json_menu(request):
 	splitmark = '__NEXT_DATA__ = '
 	cutout = ' module={}'
@@ -123,5 +126,6 @@ def json_menu(request):
 	scount= len(sOut)
 	hcount= len(hOut)
 	icount= len(iOut)
+	ncount= len(nOut)
 	strains = scount + hcount + icount
 	return JsonResponse({'sativas':sOut,'hybrids':hOut,'indicas':iOut,'nopheno':nOut,'scount':scount,'hcount':hcount,'icount':icount,'strains':strains})

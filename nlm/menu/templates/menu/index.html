@@ -1,56 +1,35 @@
 {% extends "menu/header.html" %}
-
-{% block sativa %}
-<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow">
-		<div class="lh-100">
-			<p class="mb-0 text-white lh-100">test</p>
+{% load staticfiles %}
+{% block content %}
+<div style="padding: 30px;">
+	<div class="row">
+		<div class="col-sm">
+			<div class="card text-white bg-primary mb-3 shadow">
+				<div class="card-header"><h2><span><img src="{% static 'img/svg/sun.svg' %}" class="responsive-img" style='height:30px;' alt="face"></span>  Sativas</h2></div>
+				<ul id="sativas"></ul>
+			</div>
 		</div>
-</div>
-
-<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow">
-		<div class="lh-100">
-			<p class="mb-0 text-white lh-100">test</p>
+		<div class="col-sm">
+				<div class="card text-white bg-success mb-3 shadow">
+				<div class="card-header"><h2><span><img src="{% static 'img/svg/transfer.svg' %}" class="responsive-img" style='height:30px;' alt="face"></span>  Hybrids</h2></div>
+				<ul id="hybrids"></ul>
+			</div>
 		</div>
-</div>
-
-<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow">
-		<div class="lh-100">
-			<p class="mb-0 text-white lh-100">test</p>
-		</div>
-</div>
-
-<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow">
-		<div class="lh-100">
-			<p class="mb-0 text-white lh-100">test</p>
-		</div>
-</div>
-
-<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow">
-		<div class="lh-100">
-			<p class="mb-0 text-white lh-100">test</p>
-		</div>
-</div>
-
-<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow">
-		<div class="lh-100">
-			<p class="mb-0 text-white lh-100">test</p>
-		</div>
-</div>
-
-{% endblock %}
-{% block hybrid %}
-	<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow">
-			<div class="lh-100">
-				<p class="mb-0 text-white lh-100">test</p>
+			<div class="col-sm">
+					<div class="card text-white bg-dark mb-3 shadow">
+					<div class="card-header"><h2><span><img src="{% static 'img/svg/moon.svg' %}" class="responsive-img" style='height:30px;' alt="face"></span> Indicas</h2></div>
+					<ul id="indicas"></ul>
+				</div>
 			</div>
 	</div>
-	<br>
-{% endblock %}
-{% block indica %}
-	<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow">
-			<div class="lh-100">
-				<small class="mb-0 text-white lh-100">test</small>
-			</div>
+
+	<div class="row fixed-bottom">
+		<button class="btn btn-secondary btn-lg btn-block">Welcome to The Portland Canna Connection<br><small>menu by xn</small></button>
 	</div>
-	<br>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/menu_ajax.js' %}"></script>
 {% endblock %}
