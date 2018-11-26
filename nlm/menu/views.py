@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from . import models
 import json
-import urllib
+import urllib.request
 import re
+import socket
 
 def index(request):
 	return render(request, 'menu/index.html')
@@ -128,4 +129,5 @@ def json_menu(request):
 	icount= len(iOut)
 	ncount= len(nOut)
 	strains = scount + hcount + icount
-	return JsonResponse({'sativas':sOut,'hybrids':hOut,'indicas':iOut,'nopheno':nOut,'scount':scount,'hcount':hcount,'icount':icount,'strains':strains})
+	ip = socket.gethostbyname(socket.gethostname())
+	return JsonResponse({'sativas':sOut,'hybrids':hOut,'indicas':iOut,'nopheno':nOut,'scount':scount,'hcount':hcount,'icount':icount,'strains':strains, 'ip': ip})
