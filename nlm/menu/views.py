@@ -6,6 +6,11 @@ import urllib.request
 import re
 import socket
 
+def get_ip_address():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.connect(("8.8.8.8", 80))
+    return s.getsockname()[0]
+
 def index(request):
 	return render(request, 'menu/index.html')
 
@@ -129,5 +134,5 @@ def json_menu(request):
 	icount= len(iOut)
 	ncount= len(nOut)
 	strains = scount + hcount + icount
-	ip = socket.gethostbyname(socket.gethostname())
+	ip = get_ip_address()
 	return JsonResponse({'sativas':sOut,'hybrids':hOut,'indicas':iOut,'nopheno':nOut,'scount':scount,'hcount':hcount,'icount':icount,'strains':strains, 'ip': ip})
