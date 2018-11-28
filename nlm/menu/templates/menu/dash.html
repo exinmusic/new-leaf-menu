@@ -2,17 +2,119 @@
 {% load staticfiles %}
 
 {% block content %}
-			<h2>Strains that have no assigned phenotype</h2>
-			<div class="table-responsive">
-			  <table class="table table-striped table-sm">
-				<thead>
-				  <tr>
-					<th>Name</th>
-				  </tr>
-				</thead>
-				<tbody id="nopheno"></tbody>
-			  </table>
-			</div>
+					<div class="container">
+						<div class="py-5 text-center">
+							<h1><img src="/static/img/svg/fire.svg" alt="" width="32" height="32"> newleaf</h1>
+							<p class="lead">Portland Canna Connection - Dashboard</p>
+						</div>
+			
+						<div class="row">
+							<div class="col-md-4 order-md-2 mb-4">
+								<h4 class="d-flex justify-content-between align-items-center mb-3">
+									<span class="text-muted">Live assignments</span>
+								</h4>
+								<div class="table-responsive card p-2">
+									<table class="table table-striped table-sm">
+									<thead>
+										<tr>
+										<th>No phenotype</th>
+										</tr>
+									</thead>
+									<tbody id="nopheno"></tbody>
+									</table>
+								</div>
+								<div class="table-responsive card p-2">
+									<table class="table table-striped table-sm">
+									<thead>
+										<tr>
+										<th>Sativas</th>
+										</tr>
+									</thead>
+									<tbody id="sativas"></tbody>
+									</table>
+								</div>
+								<div class="table-responsive card p-2">
+									<table class="table table-striped table-sm">
+									<thead>
+										<tr>
+										<th>Hybrids</th>
+										</tr>
+									</thead>
+									<tbody id="hybrids"></tbody>
+									</table>
+								</div>
+								<div class="table-responsive card p-2">
+									<table class="table table-striped table-sm">
+									<thead>
+										<tr>
+										<th>Indicas</th>
+										</tr>
+									</thead>
+									<tbody id="indicas"></tbody>
+									</table>
+								</div>
+
+							</div>
+							<div class="col-md-8 order-md-1">
+								<h4 class="mb-3">Strain details</h4>
+								<form class="needs-validation" novalidate>
+									<div class="mb-3">
+										<label for="username">Name</label>
+										<div class="input-group">
+											<input type="text" class="form-control" id="username" required>
+											<div class="invalid-feedback" style="width: 100%;">
+												Your username is required.
+											</div>
+										</div>
+									</div>
+									<h4 class="mb-3">Phenotype</h4>
+									<div class="d-block my-3">
+										<div class="custom-control custom-radio">
+											<input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+											<label class="custom-control-label" for="credit">Sativa</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
+											<label class="custom-control-label" for="debit">Hybrid</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+											<label class="custom-control-label" for="paypal">Indica</label>
+										</div>
+									</div>
+									<h4 class="mb-3">High CBD</h4>
+									<div class="d-block my-3">
+										<div class="custom-control custom-radio">
+											<input id="hcbd" name="cbd" type="radio" class="custom-control-input" checked required>
+											<label class="custom-control-label" for="hcbd">True</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input id="lcbd" name="cbd" type="radio" class="custom-control-input" required>
+											<label class="custom-control-label" for="lcbd">False</label>
+										</div>
+									</div>
+									<h4 class="mb-3">Staff pick</h4>
+									<div class="d-block my-3">
+										<div class="custom-control custom-radio">
+											<input id="picked" name="pick" type="radio" class="custom-control-input" checked required>
+											<label class="custom-control-label" for="picked">Shits fire</label>
+										</div>
+										<div class="custom-control custom-radio">
+											<input id="npicked" name="pick" type="radio" class="custom-control-input" required>
+											<label class="custom-control-label" for="npicked">False</label>
+										</div>
+									</div>
+									<hr class="mb-4">
+									<button class="btn btn-primary btn-lg btn-block" type="submit">Update</button>
+								</form>
+							</div>
+						</div>
+			
+						<footer class="my-5 pt-5 text-muted text-center text-small">
+							<p class="mb-1">&copy; 2017-2018 David Dolan</p>
+						</footer>
+					</div>
+			
   
 {% endblock %}
 
