@@ -15,7 +15,14 @@ def index(request):
 	return render(request, 'menu/index.html')
 
 def dash(request):
-	return render(request, 'menu/dash.html')
+	if request.method == "POST":
+		strain_name = request.POST.get('strain_name')
+		strain_pheno = request.POST.get('strain_pheno')
+		print('{0} is now stored as {1}'.format(strain_name, strain_pheno))
+		models.Strain.objects.create(name=strain_name,pheno=strain_pheno)
+		return JsonResponse({"this is a":'test'})
+	else:
+		return render(request, 'menu/dash.html')
 
 def json_menu(request):
 	splitmark = '__NEXT_DATA__ = '

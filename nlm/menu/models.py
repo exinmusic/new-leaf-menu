@@ -8,9 +8,9 @@ PHENOTYPE_CHOICES = (
 
 class Strain(models.Model):
 	name = models.CharField(max_length=140)
-	pheno = models.CharField(max_length=6, choices=PHENOTYPE_CHOICES)
-	cbd = models.BooleanField()
-	favorite = models.BooleanField()
+	pheno = models.CharField(max_length=6, choices=PHENOTYPE_CHOICES, default='hybrid')
+	cbd = models.BooleanField(default=0)
+	favorite = models.BooleanField(default=0)
 
 	def __str__(self):
 		return self.name
