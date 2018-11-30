@@ -21,7 +21,6 @@ def dash(request):
 		strain_data['strain_pheno'] = request.POST.get('strain_pheno')
 		strain_data['high_cbd'] = request.POST.get('high_cbd').title()
 		strain_data['staff_pick'] = request.POST.get('staff_pick').title()
-		print('SANITY: '+strain_data['staff_pick'])
 		# Check DB for strain
 		results = models.Strain.objects.all().filter(name=strain_data['strain_name'])
 		if results:
@@ -30,14 +29,14 @@ def dash(request):
 			entry.cbd = strain_data['high_cbd']
 			entry.favorite = strain_data['staff_pick']
 			entry.save()
+			print('SANITY LOG: {0} has been updated.'.format(strain_data['strain_name']))
 			return JsonResponse(strain_data)
 			
-
-		print('SANITY LOG: {0} is now stored as {1}'.format(strain_data['strain_name'], strain_data['strain_pheno']))
 		models.Strain.objects.create(name=strain_data['strain_name'],
 									pheno=strain_data['strain_pheno'],
 									cbd=strain_data['high_cbd'],
 									favorite=strain_data['staff_pick'])
+		print('SANITY LOG: {0} is now stored as {1}.'.format(strain_data['strain_name'], strain_data['strain_pheno']))
 		return JsonResponse(strain_data)
 	else:
 		return render(request, 'menu/dash.html')
