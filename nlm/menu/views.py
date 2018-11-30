@@ -16,11 +16,18 @@ def index(request):
 
 def dash(request):
 	if request.method == "POST":
-		strain_name = request.POST.get('strain_name')
-		strain_pheno = request.POST.get('strain_pheno')
-		print('{0} is now stored as {1}'.format(strain_name, strain_pheno))
-		models.Strain.objects.create(name=strain_name,pheno=strain_pheno)
-		return JsonResponse({"this is a":'test'})
+		strain_data = {}
+		strain_data['strain_name'] = request.POST.get('strain_name')
+		strain_data['strain_pheno'] = request.POST.get('strain_pheno')
+		strain_data['high_cbd'] = request.POST.get('high_cbd').title()
+		strain_data['staff_pick'] = request.POST.get('staff_pick').title()
+
+		print('SANITY LOG: {0} is now stored as {1}'.format(strain_data['strain_name'], strain_data['strain_pheno']))
+		models.Strain.objects.create(name=strain_data['strain_name'],
+									pheno=strain_data['strain_pheno'],
+									cbd=strain_data['high_cbd'],
+									favorite=strain_data['staff_pick'])
+		return JsonResponse(strain_data)
 	else:
 		return render(request, 'menu/dash.html')
 

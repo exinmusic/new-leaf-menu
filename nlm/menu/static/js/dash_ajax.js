@@ -62,7 +62,10 @@ function create_post() {
     $.ajax({
         url : "/dash/", // the endpoint
         type : "POST", // http method
-        data : { strain_name : $('#strain-name').val(), strain_pheno : $('#updateStrain input[name=strain-pheno]:checked').val() }, // data sent with the post request
+		data : { strain_name : $('#strain-name').val(), 
+				strain_pheno : $('#updateStrain input[name=strain-pheno]:checked').val(),
+				high_cbd : $('#high-cbd').prop('checked'),
+				staff_pick : $('#staff-pick').prop('checked'), }, // data sent with the post request
         // handle a successful response
         success : function(json) {
             $('#strain-name').val(''); // remove the value from the input
