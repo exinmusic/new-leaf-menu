@@ -6,3 +6,4 @@ The menu is populated based on a leafy menu and can be maintained that way.
 If employees need to assign/reassign strains, the dashboard can be accessed from any computer on the network.
 "Staff Picks" and "High CBD" flags can be assign from the dash as well.
 Django admin has access to the strains model, and manipulate the table in case of dev and debugging.
+<img src="https://raw.githubusercontent.com/exinmusic/new-leaf-menu/master/nlm/menu/static/img/screenshot_dash.jpg">
