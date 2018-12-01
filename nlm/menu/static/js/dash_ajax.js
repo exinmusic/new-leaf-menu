@@ -71,11 +71,15 @@ function create_post() {
             $('#strain-name').val(''); // remove the value from the input
             console.log(json); // log the returned json to the console
             console.log("success"); // another sanity check
+            $('#update-strain-success').fadeIn(500)
+            setTimeout(function() {$('#update-strain-success').fadeOut(500)},2000);
         },
 
         // handle a non-successful response
         error : function(xhr,errmsg,err) {
             console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            $('#update-strain-fail').fadeIn(500)
+            setTimeout(function() {$('#update-strain-fail').fadeOut(500)},2000);
         }
     });
 };
