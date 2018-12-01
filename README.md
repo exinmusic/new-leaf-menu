@@ -12,3 +12,6 @@ Django admin has access to the strains model, and manipulate the table in case o
 Strains on the "no phenotype" list couldn't be assigned a phenotype from leafly and require manual assignment from the dashboard. In the example above, the dispensary uses a strain entry on leafy to advertise their prices include tax. In most cases you dont want anything on the "no phenotype" list unless it's a case like above where one of the entries is not a strain.
 
 Along with being able to reassign strains, "Flags" can be assigned on the menu. Things like "High CBD" and "Staff Picks" and be denoted on the menu as flags.
+
+## Menu
+<img src="https://raw.githubusercontent.com/exinmusic/new-leaf-menu/master/nlm/menu/static/img/screenshot_menu.png">
