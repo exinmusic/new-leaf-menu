@@ -2,23 +2,28 @@
 	$.getJSON( '/json_menu/', function(obj) {
 		$("#nopheno").empty();
 		$.each(obj.nopheno, function(key, value) {
-			$("#nopheno").append('<tr><td>'+value[0]+'</td></tr>');
+            $("#nopheno").append('<tr><td><input type="button" value="'+value[0]+'" name="no" onclick="fillName(this.value)" style="all: unset;"></td></tr>');
 		});
 		$("#sativas").empty();
 		$.each(obj.sativas, function(key, value) {
-			$("#sativas").append('<tr><td>'+value[0]+'</td></tr>');
+			$("#sativas").append('<tr><td><input type="button" value="'+value[0]+'" name="no" onclick="fillName(this.value)" style="all: unset;"></td></tr>');
 		});
 		$("#hybrids").empty();
 		$.each(obj.hybrids, function(key, value) {
-			$("#hybrids").append('<tr><td>'+value[0]+'</td></tr>');
+			$("#hybrids").append('<tr><td><input type="button" value="'+value[0]+'" name="no" onclick="fillName(this.value)" style="all: unset;"></td></tr>');
 		});
 		$("#indicas").empty();
 		$.each(obj.indicas, function(key, value) {
-			$("#indicas").append('<tr><td>'+value[0]+'</td></tr>');
+			$("#indicas").append('<tr><td><input type="button" value="'+value[0]+'" name="no" onclick="fillName(this.value)" style="all: unset;"></td></tr>');
 		});
 	});
 	setTimeout(arguments.callee, 15000);
 })();
+
+// 
+function fillName(name) {
+  document.getElementById("strain-name").value = name;
+}
 
 // Submit post on submit
 $('#updateStrain').on('submit', function(event){
