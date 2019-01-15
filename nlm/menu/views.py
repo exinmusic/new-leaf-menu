@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from . import models
 import json
 import urllib.request
@@ -11,8 +12,31 @@ def get_ip_address():
     s.connect(("8.8.8.8", 80))
     return s.getsockname()[0]
 
+def scrape_leafly(leafly):
+	splitmark = '__NEXT_DATA__ = '
+	cutout = ' module={}'
+
+	pattern = re.compile(cutout)
+	pattern2 = re.compile(splitmark)
+
+	htmlfile = urllib.request.urlopen(leafly)
+	htmltext = htmlfile.read().decode('utf-8')
+
+	splittext = re.split(pattern2,htmltext)
+	splittext = re.split(pattern,splittext[1])
+
+	leafly_json=splittext[0]
+	return json.loads(leafly_json)
+
+def check_settings():
+	results = models.Advanced.objects.all()
+	if results:
+		return {'dispensary':results[0],'leafly':results.values()[0]['leafly']}
+	else:
+		return {'dispensary':None,'leafly':None}
+
 def index(request):
-	return render(request, 'menu/index.html')
+	return render(request, 'menu/index.html', check_settings())
 
 def dash(request):
 	if request.method == "POST":
@@ -39,29 +63,29 @@ def dash(request):
 		print('SANITY LOG: {0} is now stored as {1}.'.format(strain_data['strain_name'], strain_data['strain_pheno']))
 		return JsonResponse(strain_data)
 	else:
-		return render(request, 'menu/dash.html')
+		return render(request, 'menu/dash.html', check_settings())
+
+@csrf_exempt
+def advanced(request):
+	if request.method == "POST":
+		results = models.Advanced.objects.all()
+		if results:
+			entry = models.Advanced.objects.get(id=results.values()[0]['id'])
+			entry.dispensary = request.POST.get('dispensary')
+			entry.leafly = request.POST.get('leafly')
+			entry.save()
+		else:
+			models.Advanced.objects.create(dispensary=request.POST.get('dispensary'),
+											leafly=request.POST.get('leafly'))
+
+	return render(request, 'menu/advanced.html', check_settings())
 
 def json_menu(request):
-	splitmark = '__NEXT_DATA__ = '
-	cutout = ' module={}'
-
-	pattern = re.compile(cutout)
-	pattern2 = re.compile(splitmark)
-
-	htmlfile = urllib.request.urlopen('https://www.leafly.com/dispensary-info/canna-connection/menu')
-	htmltext = htmlfile.read().decode('utf-8')
-
-	splittext = re.split(pattern2,htmltext)
-	splittext = re.split(pattern,splittext[1])
-
-	leafly_json=splittext[0]
-	leafly_json=json.loads(leafly_json)
-
-	hybrids = []
-	indicas = []
-	sativas = []
-	nopheno = []
-
+	results = models.Advanced.objects.all()
+	leafly_json={}
+	if results:
+		leafly_json=scrape_leafly(results.values()[0]['leafly'])
+	hybrids,indicas,sativas,nopheno = [],[],[],[]
 	flower_data = leafly_json['props']['menu']
 
 	for each_flower in flower_data:
@@ -160,3 +184,6 @@ def json_menu(request):
 	strains = scount + hcount + icount
 	ip = get_ip_address()
 	return JsonResponse({'sativas':sOut,'hybrids':hOut,'indicas':iOut,'nopheno':nOut,'scount':scount,'hcount':hcount,'icount':icount,'strains':strains, 'ip': ip})
+
+def scrape_results(request):
+	return JsonResponse(scrape_leafly('https://www.leafly.com/dispensary-info/canna-connection/menu'))

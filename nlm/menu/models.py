@@ -14,3 +14,10 @@ class Strain(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class Advanced(models.Model):
+	dispensary = models.CharField(max_length=140)
+	leafly = models.CharField(max_length=140)
+	
+	def __str__(self):
+		return self.dispensary
