@@ -38,6 +38,7 @@ def check_settings():
 def index(request):
 	return render(request, 'menu/index.html', check_settings())
 
+@csrf_exempt
 def dash(request):
 	if request.method == "POST":
 		strain_data = {}
