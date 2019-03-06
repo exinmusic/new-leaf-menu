@@ -82,23 +82,31 @@ def advanced(request):
 	return render(request, 'menu/advanced.html', check_settings())
 
 def json_menu(request):
+	pgcnt=1
+	pgext="/?menu-page="
+	hybrids,indicas,sativas,nopheno = [],[],[],[]
 	results = models.Advanced.objects.all()
 	leafly_json={}
-	if results:
-		leafly_json=scrape_leafly(results.values()[0]['leafly'])
-	hybrids,indicas,sativas,nopheno = [],[],[],[]
-	flower_data = leafly_json['props']['menu']
-
-	for each_flower in flower_data:
-		if 'strainCategory' in each_flower:
-			if each_flower['strainCategory'] == 'Hybrid':
-				hybrids.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
-			elif each_flower['strainCategory'] == 'Indica':
-				indicas.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
-			elif each_flower['strainCategory'] == 'Sativa':
-				sativas.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
+	for x in range(2):
+		if results:
+			if pgcnt == 1:
+				leafly_json=scrape_leafly(results.values()[0]['leafly'])
 			else:
-				nopheno.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
+				leafly_json=scrape_leafly(results.values()[0]['leafly']+pgext+str(pgcnt))
+		flower_data = leafly_json['props']['menu']
+
+		for each_flower in flower_data:
+			if each_flower['category'] == 'Flower':
+				if 'strainCategory' in each_flower:
+					if each_flower['strainCategory'] == 'Hybrid':
+						hybrids.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
+					elif each_flower['strainCategory'] == 'Indica':
+						indicas.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
+					elif each_flower['strainCategory'] == 'Sativa':
+						sativas.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
+					else:
+						nopheno.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
+		pgcnt += 1
 
 	sOut = []
 	hOut = []
