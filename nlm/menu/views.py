@@ -13,8 +13,8 @@ def get_ip_address():
     return s.getsockname()[0]
 
 def scrape_leafly(leafly):
-	splitmark = '__NEXT_DATA__ = '
-	cutout = ' module={}'
+	splitmark = '__NEXT_DATA__" type="application/json">'
+	cutout = '</script><script async="" id="__NEXT_PAGE__'
 
 	pattern = re.compile(cutout)
 	pattern2 = re.compile(splitmark)
@@ -93,7 +93,7 @@ def json_menu(request):
 				leafly_json=scrape_leafly(results.values()[0]['leafly'])
 			else:
 				leafly_json=scrape_leafly(results.values()[0]['leafly']+pgext+str(pgcnt))
-		flower_data = leafly_json['props']['menu']
+		flower_data = leafly_json['props']['pageProps']['menu']
 
 		for each_flower in flower_data:
 			if each_flower['category'] == 'Flower':
