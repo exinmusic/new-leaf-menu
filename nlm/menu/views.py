@@ -31,7 +31,11 @@ def scrape_leafly(leafly):
 def check_settings():
 	results = models.Advanced.objects.all()
 	if results:
-		return {'dispensary':results[0],'leafly':results.values()[0]['leafly']}
+		if results.values()[0]['stats']:
+			flipped = False
+		else: 
+			flipped = True
+		return {'dispensary':results[0],'leafly':results.values()[0]['leafly'],'stats':flipped}
 	else:
 		return {'dispensary':None,'leafly':None}
 
@@ -74,6 +78,7 @@ def advanced(request):
 			entry = models.Advanced.objects.get(id=results.values()[0]['id'])
 			entry.dispensary = request.POST.get('dispensary')
 			entry.leafly = request.POST.get('leafly')
+			entry.stats = request.POST.get('stats').title()
 			entry.save()
 		else:
 			models.Advanced.objects.create(dispensary=request.POST.get('dispensary'),
@@ -87,6 +92,7 @@ def json_menu(request):
 	hybrids,indicas,sativas,nopheno = [],[],[],[]
 	results = models.Advanced.objects.all()
 	leafly_json={}
+	# Does twice, as there are 2 pages of strains often
 	for x in range(2):
 		if results:
 			if pgcnt == 1:
@@ -185,14 +191,41 @@ def json_menu(request):
 		else:
 			s.append(False); s.append(False)
 			nOut.append(s)
-
+	stats = models.Advanced.objects.all().values()[0]['stats']
 	scount= len(sOut)
 	hcount= len(hOut)
 	icount= len(iOut)
 	ncount= len(nOut)
 	strains = scount + hcount + icount
 	ip = get_ip_address()
-	return JsonResponse({'sativas':sOut,'hybrids':hOut,'indicas':iOut,'nopheno':nOut,'scount':scount,'hcount':hcount,'icount':icount,'strains':strains, 'ip': ip})
+	return JsonResponse({'stats':stats ,'sativas':sOut,'hybrids':hOut,'indicas':iOut,'nopheno':nOut,'scount':scount,'hcount':hcount,'icount':icount,'strains':strains, 'ip': ip})
 
 def scrape_results(request):
 	return JsonResponse(scrape_leafly('https://www.leafly.com/dispensary-info/canna-connection/menu'))
+
+def get_stats(player):
+	url = "https://public-api.tracker.gg/apex/v1/standard/profile/2/" + player
+	req = urllib.request.Request(url)
+	req.add_header('TRN-Api-Key', "91668e04-a1de-4526-a7a6-920710db3cf0")
+	req.add_header('User-Agent', "Magic Browser")
+	htmlfile = urllib.request.urlopen(req)
+	characters = json.loads(htmlfile.read().decode('utf-8'))['data']['children']
+	legends = {}
+	for character in characters:
+		legends[character['metadata']['legend_name']] = character['stats']
+	return legends
+
+def stats(request):
+	players = ['johnnytorreano','theelmore','wordsalads']
+	player_stats = {}
+	for player in players:
+		player_stats[player] = {}
+		player_stats[player]['Kills'] = 0
+		current_stats = get_stats(player)
+		for key,value in current_stats.items():
+			player_stats[player][key]={}
+			for stat in value:
+				player_stats[player][key][stat['metadata']['name']]=stat['value']
+				if stat['metadata']['name'] == "Kills":
+					player_stats[player]['Kills'] += stat['value']
+	return JsonResponse(player_stats)

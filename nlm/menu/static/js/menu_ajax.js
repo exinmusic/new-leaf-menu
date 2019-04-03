@@ -1,7 +1,5 @@
 (function(){
 	$.getJSON( '/json_menu/', function(obj) {
-		$("#ip").empty();
-		$("#ip").append(' <span class="badge badge-success">live</span> '+obj.ip);
 		$("#sativas").empty();
 		$.each(obj.sativas, function(key, value) {
 			if (value[3] & value[4]) {
@@ -47,6 +45,15 @@
 				$("#indicas").append('<p class="mb-0 text-white lh-100">'+value[0]+'</p><small class="mb-0 text-white-50 lh-100">THC: '+value[1]+' | CBD: '+value[2]+'</small>');	
 			}		
 		});
+		if (obj.stats) {
+			$.getJSON( '/stats/', function(obj) {
+				$("#ip").empty();
+				$("#ip").append('APEX STATS<br/>Davids Kills: <span class="badge badge-danger">'+ obj['wordsalads']['Kills'] +'</span>&nbsp&nbsp Evans Kills: <span class="badge badge-danger">'+ obj['theelmore']['Kills'] +'</span>&nbsp&nbsp Johnnys Kills: <span class="badge badge-danger">'+ obj['johnnytorreano']['Kills'] +'</span>');
+			});			
+		} else {
+			$("#ip").empty();
+			$("#ip").append(' <span class="badge badge-success">live</span> '+obj.ip);	
+		}
 	});
-	setTimeout(arguments.callee, 15000);
+	setTimeout(arguments.callee, 30000);
 })();

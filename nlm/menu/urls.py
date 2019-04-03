@@ -7,4 +7,5 @@ urlpatterns = [
 	path('dash/', views.dash),
 	path('advanced/', views.advanced),
 	path('scrape_results/', views.scrape_results),
+	path('stats/', views.stats),
 ]
