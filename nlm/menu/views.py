@@ -19,7 +19,9 @@ def scrape_leafly(leafly):
 	pattern = re.compile(cutout)
 	pattern2 = re.compile(splitmark)
 
-	htmlfile = urllib.request.urlopen(leafly)
+	req = urllib.request.Request(leafly)
+	req.add_header('User-Agent', "Magic Browser")
+	htmlfile = urllib.request.urlopen(req)
 	htmltext = htmlfile.read().decode('utf-8')
 
 	splittext = re.split(pattern2,htmltext)
