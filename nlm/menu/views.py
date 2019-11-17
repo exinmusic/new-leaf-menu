@@ -14,7 +14,7 @@ def get_ip_address():
 
 def scrape_leafly(leafly):
 	splitmark = '__NEXT_DATA__" type="application/json">'
-	cutout = '</script><script async="" id="__NEXT_PAGE__'
+	cutout = '</script><script'
 
 	pattern = re.compile(cutout)
 	pattern2 = re.compile(splitmark)
