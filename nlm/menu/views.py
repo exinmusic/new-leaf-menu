@@ -101,7 +101,7 @@ def json_menu(request):
 				leafly_json=scrape_leafly(results.values()[0]['leafly'])
 			else:
 				leafly_json=scrape_leafly(results.values()[0]['leafly']+pgext+str(pgcnt))
-		flower_data = leafly_json['props']['pageProps']['menu']
+		flower_data = leafly_json['props']['pageProps']['initialMenuState']['data']['results']
 
 		for each_flower in flower_data:
 			if each_flower['category'] == 'Flower':
