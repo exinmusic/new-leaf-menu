@@ -105,12 +105,12 @@ def json_menu(request):
 
 		for each_flower in flower_data:
 			if each_flower['productCategory'] == 'Flower':
-				if 'strainCategory' in each_flower:
-					if each_flower['strainCategory'] == 'Hybrid':
+				if each_flower['strain']:
+					if each_flower['strain']['category'] == 'Hybrid':
 						hybrids.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
-					elif each_flower['strainCategory'] == 'Indica':
+					elif each_flower['strain']['category'] == 'Indica':
 						indicas.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
-					elif each_flower['strainCategory'] == 'Sativa':
+					elif each_flower['strain']['category'] == 'Sativa':
 						sativas.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
 					else:
 						nopheno.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
