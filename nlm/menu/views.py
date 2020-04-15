@@ -104,7 +104,7 @@ def json_menu(request):
 		flower_data = leafly_json['props']['pageProps']['initalMenuState']['data']['results']
 
 		for each_flower in flower_data:
-			if each_flower['category'] == 'Flower':
+			if each_flower['productCategory'] == 'Flower':
 				if 'strainCategory' in each_flower:
 					if each_flower['strainCategory'] == 'Hybrid':
 						hybrids.append([each_flower['name'], each_flower['thcContent'], each_flower['cbdContent']])
